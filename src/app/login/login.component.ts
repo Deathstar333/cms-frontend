@@ -37,15 +37,11 @@ export class LoginComponent implements OnInit {
     this.auth.userLogin(
       this.userForm.controls["email"].value,
       this.userForm.controls["password"].value
-    );
-
-    this.router.navigate(["/", "home"]).then(
-      (nav) => {
-        console.log(nav);
-      },
-      (err) => {
-        console.log(err);
-      }
+    ).subscribe(
+      x => { if(x) {
+        localStorage.setItem("loggedInUser", this.userForm.controls["email"].value);
+        this.router.navigate(["/", "home"]);
+      }}
     );
   }
 

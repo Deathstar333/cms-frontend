@@ -1,21 +1,29 @@
-import { Injectable } from '@angular/core';
-import { UserDetails } from '../_models/user-details';
+import { Injectable } from "@angular/core";
+import { UserDetails } from "../_models/user-details";
+import { Router } from "@angular/router";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AuthService {
-
-  constructor() { }
-
-  userLogin(email: string, password: string) : boolean {
-    const user = new UserDetails(email, password);
-    localStorage.setItem('loggedInUser', user.email);
-    return true;
+  private apiUrl: string = "http://localhost:8080";
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-type': 'application/json'
+    })
   }
 
-  isLoggedIn() : boolean {
-    if( localStorage.getItem('loggedInUser') === null) {
+  constructor(private router: Router, private http: HttpClient) {}
+
+  userLogin(email: string, password: string): Observable<Boolean> {
+    const user = new UserDetails(email, password);
+    return this.http.post<boolean>(this.apiUrl + "/api/login", JSON.stringify(user), this.httpOptions);
+  }
+
+  isLoggedIn(): boolean {
+    if (localStorage.getItem("loggedInUser") === null) {
       console.log("not logged in");
       return false;
     }
@@ -23,10 +31,10 @@ export class AuthService {
   }
 
   userLogout() {
-    localStorage.removeItem('loggedInUser');
+    localStorage.removeItem("loggedInUser");
   }
 
   get currentUser() {
-    return localStorage.getItem('loggedInUser');
+    return localStorage.getItem("loggedInUser");
   }
 }

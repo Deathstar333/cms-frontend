@@ -12,6 +12,7 @@ import { TestComponent } from './test/test.component';
 import { CreateSurveyComponent } from './home/create-survey/create-survey.component';
 import { ShowAllSurveysComponent } from './home/show-all-surveys/show-all-surveys.component';
 import { RegisterComponent } from './home/register/register.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { RegisterComponent } from './home/register/register.component';
     ReactiveFormsModule,
     LayoutModule,
     CustomMaterialModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
