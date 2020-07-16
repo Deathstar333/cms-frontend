@@ -1,0 +1,55 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" novalidate>
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>Welcome to CMS</mat-card-title>
+      <mat-card-subtitle
+        >Please enter your email ID and password</mat-card-subtitle
+      >
+    </mat-card-header>
+    <mat-card-content>
+      <!-- Email -->
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              type="email"
+              placeholder="username@domain.com"
+              formControlName="email"
+            />
+            <mat-error *ngIf="userForm.get('email').invalid">{{
+              getEmailError()
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password" />
+            <mat-error *ngIf="userForm.get('password').invalid">{{
+              getPasswordError()
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <!-- Submit -->
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="userForm.invalid"
+      >
+        Submit
+      </button>
+      <!-- Reset -->
+      <button mat-raised-button color="primary" type="reset">Reset</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
