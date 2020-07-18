@@ -7,6 +7,9 @@
       >
     </mat-card-header>
     <mat-card-content>
+      <mat-error *ngIf="invalidLogin">
+        <span>Please enter a valid email and/or password</span>
+      </mat-error>
       <!-- Email -->
       <div class="row">
         <div class="col">
@@ -17,6 +20,7 @@
               type="email"
               placeholder="username@domain.com"
               formControlName="email"
+              autocomplete="off"
             />
             <mat-error *ngIf="userForm.get('email').invalid">{{
               getEmailError()

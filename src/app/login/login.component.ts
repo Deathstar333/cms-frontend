@@ -9,6 +9,8 @@ import { AuthService } from "../_services/auth.service";
   styleUrls: ["./login.component.css"],
 })
 export class LoginComponent implements OnInit {
+
+  invalidLogin: boolean = false;
   userForm: FormGroup = this.formBuilder.group({
     email: [
       "",
@@ -41,7 +43,11 @@ export class LoginComponent implements OnInit {
       x => { if(x) {
         localStorage.setItem("loggedInUser", this.userForm.controls["email"].value);
         this.router.navigate(["/", "home"]);
-      }}
+      }
+      else {
+        this.invalidLogin = true;
+      }
+    }
     );
   }
 
